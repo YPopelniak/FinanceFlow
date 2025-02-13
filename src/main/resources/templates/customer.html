@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg p-4">
+                <h2 class="text-center mb-4">Register</h2>
+                <form th:object="${customer}" method="post" th:action="@{/customer/confirmation}">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
+                            <div th:if="${#fields.hasErrors('firstName')}" class="text-danger">
+                                <ul>
+                                    <li th:each="error : ${#fields.errors('firstName')}" th:text="${error}"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
+                            <div th:if="${#fields.hasErrors('lastName')}" class="text-danger">
+                                <ul>
+                                    <li th:each="error : ${#fields.errors('lastName')}" th:text="${error}"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="address1" class="form-label">Address 1</label>
+                            <input type="text" class="form-control" id="address1" th:field="*{address1}" required>
+                            <div th:if="${#fields.hasErrors('address1')}" class="text-danger">
+                                <ul>
+                                    <li th:each="error : ${#fields.errors('address1')}" th:text="${error}"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="address2" class="form-label">Address 2</label>
+                            <input type="text" class="form-control" id="address2" th:field="*{address2}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="state" class="form-label">State</label>
+                            <select class="form-control" id="state" th:field="*{state}">
+                                <option value="">Select State</option> <!-- Default Option -->
+                                <option th:each="state : ${stateList}" th:value="${state}" th:text="${state}"></option>
+                            </select>
+                            <div th:if="${#fields.hasErrors('state')}" class="text-danger">
+                                <ul>
+                                    <li th:each="error : ${#fields.errors('state')}" th:text="${error}"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="zipCode" class="form-label">Zip Code</label>
+                            <input type="text" class="form-control" id="zipCode" th:field="*{zipcode}" required>
+                            <div th:if="${#fields.hasErrors('zipcode')}" class="text-danger">
+                                <ul>
+                                    <li th:each="error : ${#fields.errors('zipcode')}" th:text="${error}"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" th:field="*{city}" required>
+                            <div th:if="${#fields.hasErrors('city')}" class="text-danger">
+                                <ul>
+                                    <li th:each="error : ${#fields.errors('city')}" th:text="${error}"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" th:field="*{email}" required>
+                            <div th:if="${#fields.hasErrors('email')}" class="text-danger">
+                                <ul>
+                                    <li th:each="error : ${#fields.errors('email')}" th:text="${error}"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Membership Type</label>
+                        <div>
+                            <input type="radio" id="standard" name="membershipType" value="STANDARD" th:field="*{membershipType}" required>
+                            <label for="standard">Standard</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="premium" name="membershipType" value="PREMIUM" th:field="*{membershipType}">
+                            <label for="premium">Premium</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="ultimate" name="membershipType" value="ULTIMATE" th:field="*{membershipType}">
+                            <label for="ultimate">Ultimate</label>
+                        </div>
+                        <div th:if="${#fields.hasErrors('membershipType')}" class="text-danger">
+                            <ul>
+                                <li th:each="error : ${#fields.errors('membershipType')}" th:text="${error}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h5>Terms and Conditions</h5>
+                        <p>You consent to receive communications from us electronically. We will communicate with you by e-mail or phone. You agree that all agreements, notices, disclosures, and other communications that we provide to you electronically satisfy any legal requirement that such communications be in writing.</p>
+                        <div>
+                            <input type="checkbox" id="terms" th:field="*{agreeTerms}" required>
+                            <label for="terms">I Agree to <strong>Terms & Conditions</strong></label>
+                        </div>
+                        <div th:if="${#fields.hasErrors('agreeTerms')}" class="text-danger">
+                            <ul>
+                                <li th:each="error : ${#fields.errors('agreeTerms')}" th:text="${error}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Submit</button>
+                </form>
+                <div class="text-center mt-3">
+                    <small>Already have an account? <a href="/login">Login here</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
